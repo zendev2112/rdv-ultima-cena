@@ -1,357 +1,988 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Youtube, 
-  Instagram, 
-  Tv, 
-  Users, 
-  MapPin, 
-  PlayCircle, 
-  MessageSquare, 
-  ChevronRight, 
-  CheckCircle2,
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import {
+  Youtube,
+  Instagram,
+  Tv,
+  MapPin,
+  PlayCircle,
+  MessageSquare,
+  ChevronRight,
   Star,
   Smartphone,
   Share2,
   Clock,
-  Award,
-  BarChart3
-} from 'lucide-react';
+  BarChart3,
+  Menu,
+  X,
+} from 'lucide-react'
 
 const App = () => {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const features = [
     {
-      title: "Exposición prolongada",
-      desc: "Cada programa genera cientos de horas de visualización real.",
-      icon: <Clock className="w-6 h-6 text-red-500" />
+      title: 'Exposición prolongada',
+      desc: 'Cada programa genera cientos de horas de visualización real.',
+      icon: <Clock size={24} />,
     },
     {
-      title: "Pantalla grande",
-      desc: "El mayor tiempo de consumo ocurre en televisores, con un promedio de 30 minutos.",
-      icon: <Tv className="w-6 h-6 text-blue-400" />
+      title: 'Pantalla grande',
+      desc: 'El mayor tiempo de consumo ocurre en televisores, con un promedio de 30 minutos.',
+      icon: <Tv size={24} />,
     },
     {
-      title: "Alcance en redes",
-      desc: "Los reels superan las 20.000 visualizaciones promedio.",
-      icon: <Smartphone className="w-6 h-6 text-pink-500" />
+      title: 'Alcance en redes',
+      desc: 'Los reels superan las 20.000 visualizaciones promedio.',
+      icon: <Smartphone size={24} />,
     },
     {
-      title: "Circulación social",
-      desc: "Los contenidos se comparten activamente dentro de la comunidad (100 por reel).",
-      icon: <Share2 className="w-6 h-6 text-green-400" />
+      title: 'Circulación social',
+      desc: 'Los contenidos se comparten activamente dentro de la comunidad (100 por reel).',
+      icon: <Share2 size={24} />,
     },
     {
-      title: "Contexto local",
-      desc: "Historias e invitados que pertenecen a Coronel Suárez y la región.",
-      icon: <MapPin className="w-6 h-6 text-yellow-500" />
-    }
-  ];
+      title: 'Contexto local',
+      desc: 'Historias e invitados que pertenecen a Coronel Suárez y la región.',
+      icon: <MapPin size={24} />,
+    },
+  ]
 
   const packages = [
     {
-      title: "Sponsor del programa",
-      tag: "Presencia Institucional",
-      description: "Mención de agradecimiento en cada emisión del programa.",
-      icon: <Star className="w-8 h-8 text-yellow-500" />
+      title: 'Sponsor del programa',
+      tag: 'Presencia Institucional',
+      description: 'Mención de agradecimiento en cada emisión del programa.',
+      icon: <Star size={32} />,
     },
     {
-      title: "PNT integrado",
-      tag: "Orgánico",
-      description: "Mención comercial natural dentro de la conversación de la mesa.",
-      icon: <MessageSquare className="w-8 h-8 text-blue-500" />
+      title: 'PNT integrado',
+      tag: 'Orgánico',
+      description:
+        'Mención comercial natural dentro de la conversación de la mesa.',
+      icon: <MessageSquare size={32} />,
     },
     {
-      title: "Presencia de marca en mesa",
-      tag: "Visual",
-      description: "Productos o elementos de tu marca visibles durante todo el programa.",
-      icon: <Tv className="w-8 h-8 text-purple-500" />
+      title: 'Presencia de marca en mesa',
+      tag: 'Visual',
+      description:
+        'Productos o elementos de tu marca visibles durante todo el programa.',
+      icon: <Tv size={32} />,
     },
     {
-      title: "Contenido especial con figuras",
-      tag: "Redes Sociales",
-      description: "Piezas producidas específicamente para redes sociales con las figuras del programa.",
+      title: 'Contenido especial con figuras',
+      tag: 'Redes Sociales',
+      description:
+        'Piezas producidas específicamente para redes sociales con las figuras del programa.',
       highlight: true,
-      icon: <PlayCircle className="w-8 h-8 text-red-600" />
-    }
-  ];
+      icon: <PlayCircle size={32} />,
+    },
+  ]
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white font-sans selection:bg-red-500 selection:text-white scroll-smooth">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-neutral-950/90 backdrop-blur-md py-4 border-b border-white/10' : 'bg-transparent py-6'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-xl italic">V</div>
-            <span className="font-bold text-xl tracking-tighter uppercase hidden sm:block">Radio del Volga</span>
-          </div>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-neutral-400">
-            <a href="#programa" className="hover:text-white transition-colors">El Programa</a>
-            <a href="#alcance" className="hover:text-white transition-colors">Alcance</a>
-            <a href="#atractivo" className="hover:text-white transition-colors">Por qué elegirnos</a>
-            <a href="#comercial" className="hover:text-white transition-colors">Participación Comercial</a>
-          </div>
-          <a href="#comercial" className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">
-            Ver Opciones
-          </a>
-        </div>
-      </nav>
+    <div className="App">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+      <style>{`
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: white; }
 
-      {/* Bloque 1 — Presentación (Hero) */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/90 to-neutral-950/40 z-10" />
-          <img 
-            src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80" 
-            alt="Studio Background" 
-            className="w-full h-full object-cover opacity-30"
-          />
+        .App {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        .section { padding: 100px 0; }
+
+        .gradient-text {
+          background: linear-gradient(135deg, #FF0000, #FF6B35, #FFB700);
+          background-size: 200% 200%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: gradientAnim 3s ease infinite;
+        }
+
+        @keyframes gradientAnim {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+          background: rgba(255,255,255,0.05);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 20px;
+          padding: 30px;
+          transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+          background: rgba(255,255,255,0.08);
+          border-color: rgba(255,255,255,0.2);
+          transform: translateY(-5px);
+        }
+
+        .btn-primary {
+          background: linear-gradient(135deg, #FF0000, #FF6B35);
+          border: none;
+          padding: 15px 30px;
+          border-radius: 50px;
+          color: white;
+          font-weight: 600;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        }
+
+        .btn-secondary {
+          background: transparent;
+          border: 2px solid rgba(255,255,255,0.3);
+          padding: 15px 30px;
+          border-radius: 50px;
+          color: white;
+          font-weight: 600;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .btn-secondary:hover {
+          background: rgba(255,255,255,0.1);
+          border-color: rgba(255,255,255,0.5);
+        }
+
+        /* Header */
+        .header {
+          background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }
+        .header-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 20px;
+          gap: 40px;
+        }
+        .header-brand {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          text-decoration: none;
+          flex-shrink: 0;
+          margin-top: 20px;
+        }
+        .header-logo {
+          width: 56px;
+          height: 56px;
+        }
+        .desktop-nav {
+          display: flex;
+          gap: 40px;
+          align-items: center;
+        }
+        .header-nav a {
+          color: rgba(255,255,255,0.8);
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.3s ease;
+          font-size: 0.95rem;
+        }
+        .header-nav a:hover { color: #FF0000; }
+        .mobile-menu-toggle {
+          display: none;
+          background: none;
+          border: none;
+          color: white;
+          cursor: pointer;
+          padding: 8px;
+          transition: color 0.3s ease;
+        }
+        .mobile-menu-toggle:hover { color: #FF0000; }
+        .mobile-nav {
+          display: none;
+          flex-direction: column;
+          gap: 15px;
+          padding: 20px;
+          background: rgba(26,26,26,0.98);
+          border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-nav a {
+          padding: 12px 0;
+          display: block;
+          text-align: center;
+        }
+
+        /* Hero */
+        .hero {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .hero::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: radial-gradient(circle at 20% 80%, rgba(255,0,0,0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(255,107,53,0.1) 0%, transparent 50%);
+          pointer-events: none;
+        }
+        .hero-content {
+          text-align: left;
+          z-index: 2;
+          position: relative;
+          max-width: 800px;
+        }
+        .hero-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(255,255,255,0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.2);
+          padding: 10px 20px;
+          border-radius: 50px;
+          margin-bottom: 30px;
+          font-size: 14px;
+          font-weight: 500;
+        }
+        .hero-title {
+          font-size: clamp(2.5rem, 6vw, 4rem);
+          font-weight: 800;
+          line-height: 1.1;
+          margin-top: 0;
+          margin-bottom: 30px;
+        }
+        .hero-subtitle {
+          font-size: 1.2rem;
+          color: rgba(255,255,255,0.8);
+          margin-bottom: 40px;
+          line-height: 1.6;
+        }
+        .hero-description {
+          font-size: 1rem;
+          color: rgba(255,255,255,0.6);
+          margin-bottom: 40px;
+          line-height: 1.7;
+          max-width: 650px;
+        }
+        .hero-buttons {
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+
+        /* Section Headers */
+        .section-header {
+          text-align: center;
+          margin-bottom: 80px;
+        }
+        .section-header h2 {
+          font-size: 3rem;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+        .section-header p {
+          font-size: 1.2rem;
+          color: rgba(255,255,255,0.7);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 30px;
+        }
+        .stat-card {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.05);
+          border-radius: 20px;
+          padding: 30px;
+          position: relative;
+          overflow: hidden;
+          transition: border-color 0.3s ease;
+        }
+        .stat-card:hover {
+          border-color: rgba(255,0,0,0.3);
+        }
+        .stat-card-bg-icon {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 30px;
+          opacity: 0.03;
+        }
+        .stat-card-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 24px;
+        }
+        .stat-card-header svg {
+          color: #FF0000;
+        }
+        .stat-card-header h3 {
+          font-size: 1.3rem;
+          font-weight: 800;
+        }
+        .stat-big {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin-bottom: 6px;
+        }
+        .stat-label {
+          font-size: 0.85rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: rgba(255,255,255,0.5);
+          margin-bottom: 12px;
+        }
+        .stat-desc {
+          font-size: 0.95rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.6;
+        }
+        .stat-highlight-box {
+          background: rgba(255,0,0,0.05);
+          border: 1px solid rgba(255,0,0,0.15);
+          border-radius: 16px;
+          padding: 20px;
+          margin-top: 20px;
+        }
+        .stat-highlight-box h4 {
+          font-size: 1rem;
+          font-weight: 700;
+          margin-bottom: 8px;
+        }
+        .stat-highlight-box p {
+          font-size: 0.9rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.6;
+        }
+
+        /* Content + Features */
+        .content-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          align-items: start;
+        }
+        .content-quote {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 16px;
+          padding: 24px;
+          margin-top: 30px;
+          position: relative;
+        }
+        .content-quote p {
+          font-style: italic;
+          color: rgba(255,255,255,0.7);
+          line-height: 1.6;
+        }
+        .feature-item {
+          display: flex;
+          gap: 16px;
+          padding: 16px;
+          border-radius: 16px;
+          border: 1px solid transparent;
+          transition: all 0.3s ease;
+          margin-bottom: 8px;
+        }
+        .feature-item:hover {
+          background: rgba(255,255,255,0.03);
+          border-color: rgba(255,255,255,0.05);
+        }
+        .feature-icon {
+          width: 48px;
+          height: 48px;
+          background: rgba(255,0,0,0.1);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #FF0000;
+          flex-shrink: 0;
+        }
+        .feature-item h4 {
+          font-size: 1rem;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+        .feature-item p {
+          font-size: 0.9rem;
+          color: rgba(255,255,255,0.6);
+        }
+
+        /* Packages Grid */
+        .packages-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 30px;
+        }
+        .package-card {
+          text-align: center;
+          position: relative;
+        }
+        .package-card.popular {
+          border-color: #FF0000;
+          background: rgba(255,0,0,0.05);
+        }
+        .package-icon {
+          width: 60px;
+          height: 60px;
+          background: linear-gradient(135deg, #FF0000, #FF6B35);
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 20px;
+          color: white;
+        }
+        .package-card h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+        .package-tag {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          padding: 4px 12px;
+          border-radius: 20px;
+          margin-bottom: 15px;
+        }
+        .package-tag.highlight {
+          background: rgba(255,0,0,0.15);
+          color: #FF0000;
+        }
+        .package-tag.default {
+          background: rgba(255,255,255,0.1);
+          color: rgba(255,255,255,0.6);
+        }
+        .package-desc {
+          color: rgba(255,255,255,0.7);
+          font-size: 0.95rem;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        /* Footer */
+        .footer {
+          background: rgba(255,255,255,0.02);
+          border-top: 1px solid rgba(255,255,255,0.05);
+          padding: 100px 0 48px;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .footer-gradient-line {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100%;
+          max-width: 600px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #FF0000, transparent);
+          opacity: 0.5;
+        }
+        .footer-logo {
+          width: 64px;
+          height: 64px;
+          margin: 0 auto 30px;
+        }
+        .footer h2 {
+          font-size: clamp(1.5rem, 4vw, 2.5rem);
+          font-weight: 800;
+          margin-bottom: 20px;
+          line-height: 1.2;
+        }
+        .footer p {
+          color: rgba(255,255,255,0.6);
+          font-size: 1rem;
+          max-width: 600px;
+          margin: 0 auto 40px;
+          line-height: 1.6;
+        }
+        .footer-social {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-bottom: 60px;
+        }
+        .footer-social a {
+          width: 50px;
+          height: 50px;
+          background: rgba(255,255,255,0.05);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+          background: #FF0000;
+          transform: scale(1.1);
+        }
+        .footer-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid rgba(255,255,255,0.05);
+          padding-top: 30px;
+          font-size: 0.8rem;
+          color: rgba(255,255,255,0.4);
+        }
+        .footer-bottom a {
+          color: rgba(255,255,255,0.4);
+          text-decoration: none;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: 600;
+          transition: color 0.3s ease;
+        }
+        .footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+          .container { padding: 0 48px; }
+          .header-container { padding: 1rem 48px; gap: 20px; }
+          .section { padding: 80px 0; }
+          .desktop-nav { display: none; }
+          .mobile-menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .mobile-nav { display: flex; }
+          .hero-title { font-size: 2.2rem; margin-top: 0; }
+          .hero-subtitle { font-size: 1rem; }
+          .hero-buttons { justify-content: flex-start; gap: 15px; }
+          .section-header h2 { font-size: 2rem; }
+          .section-header p { font-size: 1rem; }
+          .section-header { margin-bottom: 50px; }
+          .stats-grid { grid-template-columns: 1fr; }
+          .content-layout { grid-template-columns: 1fr; gap: 40px; }
+          .packages-grid { grid-template-columns: 1fr; gap: 20px; }
+          .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+          .container { padding: 0 40px; }
+          .header-container { padding: 1rem 40px; }
+          .header-brand { gap: 10px; }
+          .header-logo { width: 36px; height: 36px; }
+          .mobile-menu-toggle { padding: 6px; }
+          .mobile-nav { padding: 15px; gap: 12px; }
+          .mobile-nav a { padding: 10px 0; font-size: 0.9rem; }
+          .section { padding: 60px 0; }
+          .hero-title { font-size: 1.75rem; line-height: 1.2; margin-bottom: 20px; margin-top: 0; }
+          .hero-subtitle { font-size: 0.9rem; margin-bottom: 15px; }
+          .hero-description { font-size: 0.9rem; margin-bottom: 25px; }
+          .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
+          .btn-primary, .btn-secondary { padding: 13px 25px; font-size: 15px; justify-content: center; }
+          .section-header { margin-bottom: 35px; }
+          .section-header h2 { font-size: 1.6rem; margin-bottom: 10px; }
+          .section-header p { font-size: 0.9rem; }
+          .glass-card { padding: 20px; border-radius: 16px; }
+          .stat-big { font-size: 2rem; }
+          .stat-card { padding: 20px; }
+          .feature-item { padding: 12px; }
+          .feature-icon { width: 40px; height: 40px; }
+          .package-icon { width: 50px; height: 50px; }
+          .package-card h3 { font-size: 1.2rem; }
+          .footer { padding: 60px 0 30px; }
+          .footer h2 { font-size: 1.4rem; }
+        }
+      `}</style>
+
+      {/* ─── Header ─── */}
+      <header className="header">
+        <div className="container header-container">
+          <div className="header-brand">
+            <img
+              src="https://res.cloudinary.com/dptdloagw/image/upload/v1773229447/logo_ekjvir.svg"
+              alt="Radio del Volga"
+              className="header-logo"
+            />
+          </div>
+
+          <nav className="header-nav desktop-nav">
+            <a href="#alcance">Alcance</a>
+            <a href="#atractivo">Por qué elegirnos</a>
+            <a href="#comercial">Participación</a>
+          </nav>
+
+          <button
+            className="mobile-menu-toggle"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        <div className="container mx-auto px-6 relative z-20">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-600/20 text-red-500 text-xs font-bold uppercase tracking-widest border border-red-600/30">
-                <MapPin className="w-3 h-3" /> Coronel Suárez y la región
-              </span>
-            </div>
-            <h1 className="text-6xl md:text-8xl font-black mb-4 leading-none tracking-tight">
-              LA ÚLTIMA <br />
-              <span className="text-red-600">CENA</span>
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-bold text-neutral-300 mb-6">
-              Streaming de historias locales.
-            </h2>
-            <p className="text-lg text-neutral-400 mb-8 leading-relaxed max-w-2xl">
-              Historias de vecinos y proyectos de Coronel Suárez y la región, con un formato conversacional que permite profundizar en cada experiencia, generando cercanía con la comunidad y conexión con el público.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#alcance" className="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-neutral-200 transition-all">
-                Conocer Métricas <BarChart3 className="w-5 h-5" />
+        {menuOpen && (
+          <nav className="header-nav mobile-nav">
+            <a href="#alcance" onClick={() => setMenuOpen(false)}>
+              Alcance
+            </a>
+            <a href="#atractivo" onClick={() => setMenuOpen(false)}>
+              Por qué elegirnos
+            </a>
+            <a href="#comercial" onClick={() => setMenuOpen(false)}>
+              Participación
+            </a>
+          </nav>
+        )}
+      </header>
+
+      {/* ─── Hero ─── */}
+      <section className="hero">
+        <div className="container">
+          <motion.div
+            className="hero-content"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h1
+              className="hero-title"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              La Última <span className="gradient-text">Cena</span>
+            </motion.h1>
+            <motion.p
+              className="hero-subtitle"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              Historias de vecinos y proyectos de Coronel Suárez y la región,
+              con un formato conversacional que permite profundizar en cada
+              experiencia, generando cercanía con la comunidad y conexión con el
+              público.
+            </motion.p>
+            <motion.div
+              className="hero-buttons"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              <a href="#alcance" className="btn-primary">
+                Conocer Métricas <BarChart3 size={20} />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Bloques 2 y 3 — Alcance en YouTube e Instagram */}
-      <section id="alcance" className="py-24 bg-neutral-900/50 relative border-t border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-6">El impacto en números</h2>
-            <p className="text-neutral-400 text-lg">
-              No medimos solo vistas, medimos <strong>atención real</strong>. Nuestro contenido funciona más cerca del formato televisivo que del consumo rápido de redes sociales.
+      {/* ─── Alcance Section ─── */}
+      <section
+        id="alcance"
+        className="section"
+        style={{ background: 'rgba(255,255,255,0.02)' }}
+      >
+        <div className="container">
+          <motion.div
+            className="section-header"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2>
+              El impacto en <span className="gradient-text">números</span>
+            </h2>
+            <p>
+              No medimos solo vistas, medimos atención real. Nuestro contenido
+              funciona más cerca del formato televisivo que del consumo rápido
+              de redes sociales.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
-            
-            {/* YouTube Stats */}
-            <div className="bg-neutral-800/30 rounded-3xl p-8 md:p-10 border border-white/5 relative overflow-hidden group hover:border-red-600/30 transition-colors flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <Youtube className="w-64 h-64" />
+          <div className="stats-grid">
+            {/* YouTube */}
+            <motion.div
+              className="stat-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="stat-card-bg-icon">
+                <Youtube size={200} />
               </div>
-              <div className="relative z-10 flex flex-col flex-grow">
-                <div className="flex items-center gap-3 mb-8">
-                  <Youtube className="w-8 h-8 text-red-500" />
-                  <h3 className="text-2xl font-black">YouTube</h3>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div className="stat-card-header">
+                  <Youtube size={28} />
+                  <h3>YouTube</h3>
                 </div>
-                
-                <div className="flex flex-col gap-6 mb-8 flex-grow">
-                  <div>
-                    <p className="text-4xl font-black text-white mb-1">1.900</p>
-                    <p className="text-sm text-neutral-300 font-bold uppercase tracking-wider mb-2">Promedio de reproducciones</p>
-                    <p className="text-sm text-neutral-400 leading-relaxed">
-                      Este número en YouTube muestra que La Última Cena mantiene un público constante, interesado en historias locales y conversaciones profundas.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-blue-900/10 rounded-2xl p-6 border border-blue-500/30 mt-auto relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-                  <div className="flex items-start gap-4">
-                    <Tv className="w-8 h-8 text-blue-400 flex-shrink-0 mt-1" />
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-1 block">Dato Principal</span>
-                      <h4 className="font-bold text-white mb-2 text-lg leading-tight">Smart TV: el dispositivo con mayor tiempo de consumo</h4>
-                      <p className="text-sm text-neutral-300 leading-relaxed">
-                        La audiencia que ve La Última Cena en Smart TV permanece más tiempo frente a la pantalla, disfrutando la experiencia de la televisión tradicional: pantalla grande, atención sostenida y consumo concentrado. Esto ofrece un espacio de exposición prolongada y altamente efectivo para la marca.
-                      </p>
-                    </div>
-                  </div>
+                <div className="stat-big">1.900</div>
+                <div className="stat-label">Promedio de reproducciones</div>
+                <p className="stat-desc">
+                  Este número en YouTube muestra que La Última Cena mantiene un
+                  público constante, interesado en historias locales y
+                  conversaciones profundas.
+                </p>
+                <div className="stat-highlight-box">
+                  <h4>Smart TV: el dispositivo con mayor tiempo de consumo</h4>
+                  <p>
+                    La audiencia que ve La Última Cena en Smart TV permanece más
+                    tiempo frente a la pantalla, disfrutando la experiencia de
+                    la televisión tradicional: pantalla grande, atención
+                    sostenida y consumo concentrado. Esto ofrece un espacio de
+                    exposición prolongada y altamente efectivo para la marca.
+                  </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Instagram Stats */}
-            <div className="bg-neutral-800/30 rounded-3xl p-8 md:p-10 border border-white/5 relative overflow-hidden group hover:border-pink-600/30 transition-colors flex flex-col">
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <Instagram className="w-64 h-64" />
+            {/* Instagram */}
+            <motion.div
+              className="stat-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="stat-card-bg-icon">
+                <Instagram size={200} />
               </div>
-              <div className="relative z-10 flex flex-col flex-grow">
-                <div className="flex items-center gap-3 mb-8">
-                  <Instagram className="w-8 h-8 text-pink-500" />
-                  <h3 className="text-2xl font-black">Instagram (Reels)</h3>
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div className="stat-card-header">
+                  <Instagram size={28} />
+                  <h3>Instagram (Reels)</h3>
                 </div>
-                
-                <div className="flex flex-col gap-6 mb-8 flex-grow">
-                  <div>
-                    <p className="text-4xl font-black text-white mb-1">600.000</p>
-                    <p className="text-sm text-neutral-300 font-bold uppercase tracking-wider mb-2">Visualizaciones acumuladas</p>
-                    <p className="text-sm text-neutral-400 leading-relaxed">
-                      Cada reel en Instagram llega a una gran cantidad de personas, manteniendo activo el contenido del programa y ampliando la presencia de la marca en redes.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-4xl font-black text-white mb-1">20.000</p>
-                    <p className="text-sm text-neutral-300 font-bold uppercase tracking-wider mb-2">Promedio por reel</p>
-                    <p className="text-sm text-neutral-400 leading-relaxed">
-                      Cada reel funciona como un micro-impacto: la marca aparece de forma breve, atractiva y con gran alcance dentro de la plataforma.
-                    </p>
-                  </div>
+                <div className="stat-big">600.000</div>
+                <div className="stat-label">Visualizaciones acumuladas</div>
+                <p className="stat-desc">
+                  Cada reel en Instagram llega a una gran cantidad de personas,
+                  manteniendo activo el contenido del programa y ampliando la
+                  presencia de la marca en redes.
+                </p>
+                <div style={{ marginTop: '20px' }}>
+                  <div className="stat-big">20.000</div>
+                  <div className="stat-label">Promedio por reel</div>
+                  <p className="stat-desc">
+                    Cada reel funciona como un micro-impacto: la marca aparece
+                    de forma breve, atractiva y con gran alcance dentro de la
+                    plataforma.
+                  </p>
                 </div>
-
-                <div className="bg-neutral-950/50 rounded-2xl p-6 border border-white/5 mt-auto">
-                  <div className="flex items-start gap-4">
-                    <Share2 className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-bold text-white mb-2">100 compartidos promedio</h4>
-                      <p className="text-sm text-neutral-400 leading-relaxed">
-                        Los espectadores comparten el contenido de manera espontánea en Instagram, ayudando a que la marca llegue a más personas dentro de la comunidad.
-                      </p>
-                    </div>
-                  </div>
+                <div className="stat-highlight-box">
+                  <h4>100 compartidos promedio</h4>
+                  <p>
+                    Los espectadores comparten el contenido de manera espontánea
+                    en Instagram, ayudando a que la marca llegue a más personas
+                    dentro de la comunidad.
+                  </p>
                 </div>
               </div>
-            </div>
-
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Bloques 4 y 5 — Tipo de contenido y Por qué es atractivo */}
-      <section id="atractivo" className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            
-            <div className="lg:w-1/2">
-              <span className="text-red-500 font-bold tracking-widest uppercase text-sm mb-4 block">El Contenido</span>
-              <h2 className="text-4xl md:text-5xl font-black mb-6">Protagonistas de nuestra <span className="text-red-600">comunidad</span></h2>
-              <p className="text-neutral-400 text-lg mb-8 leading-relaxed">
-                Historias de vecinos y proyectos de Coronel Suárez y la región, con un formato conversacional que permite profundizar en cada experiencia, generando cercanía con la comunidad y conexión con el público.
+      {/* ─── Content + Features Section ─── */}
+      <section id="atractivo" className="section">
+        <div className="container">
+          <motion.div
+            className="content-layout"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <p
+                style={{
+                  color: '#FF0000',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  fontSize: '0.85rem',
+                  marginBottom: '16px',
+                }}
+              >
+                El Contenido
               </p>
-              
-              <div className="bg-neutral-900/50 border border-white/10 rounded-2xl p-6 relative">
-                <Award className="absolute -top-4 -left-4 w-10 h-10 text-yellow-500 bg-neutral-950 rounded-full p-2 border border-white/10" />
-                <p className="italic text-neutral-300">
-                  "Para los auspiciantes, este contexto genera una presencia natural dentro de un espacio donde el público presta atención durante períodos prolongados."
+              <h2
+                style={{
+                  fontSize: 'clamp(2rem, 4vw, 3rem)',
+                  fontWeight: 800,
+                  marginBottom: '24px',
+                  lineHeight: 1.1,
+                }}
+              >
+                Protagonistas de nuestra{' '}
+                <span className="gradient-text">comunidad</span>
+              </h2>
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.6)',
+                  fontSize: '1.05rem',
+                  lineHeight: 1.7,
+                  marginBottom: '20px',
+                }}
+              >
+                Historias de vecinos y proyectos de Coronel Suárez y la región,
+                con un formato conversacional que permite profundizar en cada
+                experiencia, generando cercanía con la comunidad y conexión con
+                el público.
+              </p>
+              <div className="content-quote">
+                <p>
+                  "Para los auspiciantes, este contexto genera una presencia
+                  natural dentro de un espacio donde el público presta atención
+                  durante períodos prolongados."
                 </p>
               </div>
             </div>
 
-            <div className="lg:w-1/2">
-              <h3 className="text-2xl font-black mb-8">¿Por qué es un espacio atractivo para las marcas?</h3>
-              <div className="space-y-6">
-                {features.map((feature, idx) => (
-                  <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-neutral-900/50 transition-colors border border-transparent hover:border-white/5">
-                    <div className="flex-shrink-0 mt-1">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-1">{feature.title}</h4>
-                      <p className="text-neutral-400 text-sm">{feature.desc}</p>
-                    </div>
+            <div>
+              <h3
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 800,
+                  marginBottom: '24px',
+                }}
+              >
+                ¿Por qué es un espacio atractivo para las marcas?
+              </h3>
+              {features.map((feature, idx) => (
+                <div key={idx} className="feature-item">
+                  <div className="feature-icon">{feature.icon}</div>
+                  <div>
+                    <h4>{feature.title}</h4>
+                    <p>{feature.desc}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Bloque 6 — Formas de participación comercial */}
-      <section id="comercial" className="py-24 bg-neutral-900/30 border-t border-white/5">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-4">Formas de participación</h2>
-            <p className="text-neutral-400">Diseñamos espacios comerciales que se integran orgánicamente al contenido, respetando la atención del usuario.</p>
-          </div>
+      {/* ─── Packages Section ─── */}
+      <section
+        id="comercial"
+        className="section"
+        style={{ background: 'rgba(255,255,255,0.02)' }}
+      >
+        <div className="container">
+          <motion.div
+            className="section-header"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2>
+              Formas de <span className="gradient-text">participación</span>
+            </h2>
+            <p>
+              Diseñamos espacios comerciales que se integran orgánicamente al
+              contenido, respetando la atención del usuario.
+            </p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="packages-grid">
             {packages.map((pkg, idx) => (
-              <div 
-                key={idx} 
-                className={`relative p-8 rounded-3xl border transition-all duration-300 flex flex-col ${
-                  pkg.highlight 
-                    ? 'bg-neutral-800 border-red-600/50 shadow-xl shadow-red-600/10' 
-                    : 'bg-neutral-900 border-white/5 hover:border-white/20'
-                }`}
+              <motion.div
+                key={idx}
+                className={`glass-card package-card${pkg.highlight ? ' popular' : ''}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.8 }}
+                viewport={{ once: true }}
               >
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-4 bg-neutral-950 rounded-2xl">
-                    {pkg.icon}
-                  </div>
-                  <span className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${pkg.highlight ? 'bg-red-600/20 text-red-500' : 'bg-white/10 text-neutral-300'}`}>
-                    {pkg.tag}
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-black mb-3">{pkg.title}</h3>
-                <p className="text-neutral-400 text-sm mb-8 leading-relaxed flex-grow">{pkg.description}</p>
-                
-                <button className={`w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${
-                  pkg.highlight 
-                    ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-600/30' 
-                    : 'bg-white/10 hover:bg-white/20 text-white'
-                }`}>
-                  Consultar formato <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+                <div className="package-icon">{pkg.icon}</div>
+                <span
+                  className={`package-tag ${pkg.highlight ? 'highlight' : 'default'}`}
+                >
+                  {pkg.tag}
+                </span>
+                <h3>{pkg.title}</h3>
+                <p className="package-desc">{pkg.description}</p>
+                <a
+                  href="#comercial"
+                  className="btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Consultar formato <ChevronRight size={16} />
+                </a>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Bloque 7 — Cierre (Footer) */}
-      <footer className="bg-neutral-950 pt-24 pb-12 border-t border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-red-600 to-transparent opacity-50"></div>
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center font-bold text-3xl italic mx-auto mb-8">V</div>
-          
-          <h2 className="text-3xl md:text-5xl font-black mb-6">El espacio donde las historias locales<br className="hidden md:block" /> se vuelven regionales.</h2>
-          <p className="text-neutral-400 mb-12 max-w-2xl mx-auto text-lg">
-            Ofrecemos a las marcas un entorno de presencia sostenida dentro de la comunidad de Coronel Suárez y la zona.
+      {/* ─── Footer ─── */}
+      <footer className="footer">
+        <div className="footer-gradient-line" />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <img
+            src="https://res.cloudinary.com/dptdloagw/image/upload/v1773229447/logo_ekjvir.svg"
+            alt="Radio del Volga"
+            className="footer-logo"
+          />
+          <h2>El espacio donde las historias locales se vuelven regionales.</h2>
+          <p>
+            Ofrecemos a las marcas un entorno de presencia sostenida dentro de
+            la comunidad de Coronel Suárez y la zona.
           </p>
-          
-          <div className="flex justify-center gap-6 mb-20">
-            <a href="#" className="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center hover:bg-pink-600 hover:scale-110 transition-all">
-              <Instagram className="w-6 h-6" />
+          <div className="footer-social">
+            <a href="#">
+              <Instagram size={22} />
             </a>
-            <a href="#" className="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 hover:scale-110 transition-all">
-              <Youtube className="w-6 h-6" />
+            <a href="#">
+              <Youtube size={22} />
             </a>
           </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-neutral-600 text-xs border-t border-white/5 pt-8">
-            <p>© {new Date().getFullYear()} RADIO DEL VOLGA. CORONEL SUÁREZ.</p>
-            <div className="flex gap-8">
-              <a href="#" className="hover:text-neutral-400 transition-colors">MEDIA KIT COMERCIAL</a>
-            </div>
+          <div className="footer-bottom">
+            <span>
+              © {new Date().getFullYear()} RADIO DEL VOLGA. CORONEL SUÁREZ.
+            </span>
+            <a href="#">MEDIA KIT COMERCIAL</a>
           </div>
         </div>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
