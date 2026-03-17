@@ -252,11 +252,18 @@ const App = () => {
                       radial-gradient(circle at 80% 20%, rgba(255,107,53,0.1) 0%, transparent 50%);
           pointer-events: none;
         }
+        .hero-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: flex-start;
+          width: 100%;
+        }
         .hero-content {
           text-align: left;
           z-index: 2;
           position: relative;
-          max-width: 800px;
+          padding-bottom: 175px;
         }
         .hero-badge {
           display: inline-flex;
@@ -275,7 +282,7 @@ const App = () => {
           font-size: clamp(2.5rem, 6vw, 4rem);
           font-weight: 800;
           line-height: 1.1;
-          margin-top: 0;
+          margin-top: 60px;
           margin-bottom: 30px;
         }
         .hero-subtitle {
@@ -295,6 +302,29 @@ const App = () => {
           display: flex;
           gap: 20px;
           flex-wrap: wrap;
+        }
+        .hero-visual {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          padding-top: 20px;
+          z-index: 1;
+        }
+        .video-wrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 20px;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.1);
+          background: rgba(0,0,0,0.4);
+          box-shadow: 0 0 60px rgba(255,0,0,0.1);
+        }
+        .video-wrapper iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+          display: block;
         }
 
         /* Section Headers */
@@ -587,7 +617,10 @@ const App = () => {
             justify-content: center;
           }
           .mobile-nav { display: flex; }
-          .hero-title { font-size: 2.2rem; margin-top: 0; }
+          .hero-layout { grid-template-columns: 1fr; gap: 40px; }
+          .hero-visual { display: none; }
+          .hero-content { padding-bottom: 0; }
+          .hero-title { font-size: 2.2rem; margin-top: 50px; }
           .hero-subtitle { font-size: 1rem; }
           .hero-buttons { justify-content: flex-start; gap: 15px; }
           .section-header h2 { font-size: 2rem; }
@@ -608,7 +641,7 @@ const App = () => {
           .mobile-nav { padding: 15px; gap: 12px; }
           .mobile-nav a { padding: 10px 0; font-size: 0.9rem; }
           .section { padding: 60px 0; }
-          .hero-title { font-size: 1.75rem; line-height: 1.2; margin-bottom: 20px; margin-top: 0; }
+          .hero-title { font-size: 1.75rem; line-height: 1.2; margin-bottom: 20px; margin-top: 40px; }
           .hero-subtitle { font-size: 0.9rem; margin-bottom: 15px; }
           .hero-description { font-size: 0.9rem; margin-bottom: 25px; }
           .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -671,42 +704,52 @@ const App = () => {
       {/* ─── Hero ─── */}
       <section className="hero">
         <div className="container">
-          <motion.div
-            className="hero-content"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h1
-              className="hero-title"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              La Última <span className="gradient-text">Cena</span>
-            </motion.h1>
-            <motion.p
-              className="hero-subtitle"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Historias de vecinos y proyectos de Coronel Suárez y la región,
-              con un formato conversacional que permite profundizar en cada
-              experiencia, generando cercanía con la comunidad y conexión con el
-              público.
-            </motion.p>
+          <div className="hero-layout">
             <motion.div
-              className="hero-buttons"
-              initial={{ opacity: 0, y: 30 }}
+              className="hero-content"
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+              transition={{ duration: 0.8 }}
             >
-              <a href="#alcance" className="btn-primary">
-                Conocer Métricas <BarChart3 size={20} />
-              </a>
+              <motion.h1
+                className="hero-title"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+              >
+                La Última <span className="gradient-text">Cena</span>
+              </motion.h1>
+              <motion.p
+                className="hero-subtitle"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+              >
+                Historias de vecinos y proyectos de Coronel Suárez y la región,
+                con un formato conversacional que permite profundizar en cada
+                experiencia, generando cercanía con la comunidad y conexión con
+                el público.
+              </motion.p>
+              <motion.div
+                className="hero-buttons"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              >
+                <a href="#alcance" className="btn-primary">
+                  Conocer Métricas <BarChart3 size={20} />
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
+            <motion.div
+              className="hero-visual"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
+            >
+              <div className="video-wrapper">{/* video visualizer */}</div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
