@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Youtube,
   Instagram,
@@ -19,6 +19,20 @@ import {
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
+  const lastY = useRef(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 10)
+      setVisible(y < lastY.current || y < 60)
+      lastY.current = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const features = [
     {
@@ -173,12 +187,12 @@ const App = () => {
 
         /* Header */
         .header {
-          background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(255,255,255,0.1);
-          position: sticky;
+          position: fixed;
           top: 0;
+          left: 0;
+          right: 0;
           z-index: 1000;
+          will-change: transform;
         }
         .header-container {
           display: flex;
@@ -193,7 +207,6 @@ const App = () => {
           gap: 16px;
           text-decoration: none;
           flex-shrink: 0;
-          margin-top: 20px;
         }
         .header-logo {
           width: 56px;
@@ -243,6 +256,7 @@ const App = () => {
           align-items: center;
           position: relative;
           overflow: hidden;
+          padding-top: 80px;
         }
         .hero::before {
           content: '';
@@ -307,7 +321,7 @@ const App = () => {
           display: flex;
           justify-content: center;
           align-items: flex-start;
-          padding-top: 20px;
+          padding-top: 60px;
           z-index: 1;
         }
         .video-wrapper {
@@ -316,15 +330,16 @@ const App = () => {
           aspect-ratio: 16/9;
           border-radius: 20px;
           overflow: hidden;
-          border: 1px solid rgba(255,255,255,0.1);
           background: rgba(0,0,0,0.4);
           box-shadow: 0 0 60px rgba(255,0,0,0.1);
         }
-        .video-wrapper iframe {
+        .video-wrapper video {
           width: 100%;
           height: 100%;
-          border: none;
           display: block;
+          object-fit: cover;
+          -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0) 85%);
+          mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 45%, rgba(0,0,0,0) 85%);
         }
 
         /* Section Headers */
@@ -617,10 +632,12 @@ const App = () => {
             justify-content: center;
           }
           .mobile-nav { display: flex; }
+          .hero { min-height: auto; padding-top: 110px; padding-bottom: 40px; }
           .hero-layout { grid-template-columns: 1fr; gap: 40px; }
-          .hero-visual { display: none; }
-          .hero-content { padding-bottom: 0; }
-          .hero-title { font-size: 2.2rem; margin-top: 50px; }
+          .hero-content { padding-bottom: 0; text-align: left; order: 1; }
+          .hero-visual { order: 2; padding-top: 0; }
+          .video-wrapper { aspect-ratio: 16/9; }
+          .hero-title { font-size: 2.2rem; margin-top: 0; }
           .hero-subtitle { font-size: 1rem; }
           .hero-buttons { justify-content: flex-start; gap: 15px; }
           .section-header h2 { font-size: 2rem; }
@@ -641,7 +658,9 @@ const App = () => {
           .mobile-nav { padding: 15px; gap: 12px; }
           .mobile-nav a { padding: 10px 0; font-size: 0.9rem; }
           .section { padding: 60px 0; }
-          .hero-title { font-size: 1.75rem; line-height: 1.2; margin-bottom: 20px; margin-top: 40px; }
+          .hero { padding-top: 100px; padding-bottom: 30px; }
+          .hero-layout { gap: 30px; }
+          .hero-title { font-size: 1.75rem; line-height: 1.2; margin-bottom: 20px; margin-top: 0; }
           .hero-subtitle { font-size: 0.9rem; margin-bottom: 15px; }
           .hero-description { font-size: 0.9rem; margin-bottom: 25px; }
           .hero-buttons { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -662,7 +681,18 @@ const App = () => {
       `}</style>
 
       {/* ─── Header ─── */}
-      <header className="header">
+      <motion.header
+        className="header"
+        animate={{ y: visible ? 0 : '-100%', opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{
+          background: scrolled
+            ? 'linear-gradient(135deg, rgba(10,10,10,0.98) 0%, rgba(26,26,26,0.98) 100%)'
+            : 'linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, transparent 100%)',
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          transition: 'background 0.4s ease, backdrop-filter 0.4s ease',
+        }}
+      >
         <div className="container header-container">
           <div className="header-brand">
             <img
@@ -686,20 +716,27 @@ const App = () => {
           </button>
         </div>
 
-        {menuOpen && (
-          <nav className="header-nav mobile-nav">
-            <a href="#alcance" onClick={() => setMenuOpen(false)}>
-              Alcance
-            </a>
-            <a href="#atractivo" onClick={() => setMenuOpen(false)}>
-              Por qué elegirnos
-            </a>
-            <a href="#comercial" onClick={() => setMenuOpen(false)}>
-              Participación
-            </a>
-          </nav>
-        )}
-      </header>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.nav
+              className="header-nav mobile-nav"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <a href="#alcance" onClick={() => setMenuOpen(false)}>
+                Alcance
+              </a>
+              <a href="#atractivo" onClick={() => setMenuOpen(false)}>
+                Por qué elegirnos
+              </a>
+              <a href="#comercial" onClick={() => setMenuOpen(false)}>
+                Participación
+              </a>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </motion.header>
 
       {/* ─── Hero ─── */}
       <section className="hero">
@@ -747,7 +784,15 @@ const App = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6, duration: 1 }}
             >
-              <div className="video-wrapper">{/* video visualizer */}</div>
+              <div className="video-wrapper">
+                <video
+                  src="https://res.cloudinary.com/dptdloagw/video/upload/v1773765143/Dise%C3%B1o_sin_t%C3%ADtulo_2_potx4e.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              </div>
             </motion.div>
           </div>
         </div>
