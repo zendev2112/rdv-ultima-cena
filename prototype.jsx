@@ -786,7 +786,7 @@ const App = () => {
             >
               <div className="video-wrapper">
                 <video
-                  src="https://res.cloudinary.com/dptdloagw/video/upload/v1773765143/Dise%C3%B1o_sin_t%C3%ADtulo_2_potx4e.mp4"
+                  src="https://res.cloudinary.com/dptdloagw/video/upload/v1773768595/Dise%C3%B1o_sin_t%C3%ADtulo_3_g4ow0z.mp4"
                   autoPlay
                   muted
                   loop
