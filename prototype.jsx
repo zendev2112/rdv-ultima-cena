@@ -16,6 +16,7 @@ import {
   Menu,
   X,
 } from 'lucide-react'
+import ReelsCarousel from './ReelsCarousel'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -677,6 +678,76 @@ const App = () => {
           .package-card h3 { font-size: 1.2rem; }
           .footer { padding: 60px 0 30px; }
           .footer h2 { font-size: 1.4rem; }
+
+          /* Carousel Styles */
+          .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.4);
+          }
+          .carousel-slide {
+            width: 100%;
+            position: relative;
+          }
+          .reel-embed {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,0,0,0.6);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+          }
+          .carousel-button:hover {
+            background: #FF0000;
+          }
+          .carousel-button.prev { left: 15px; }
+          .carousel-button.next { right: 15px; }
+          .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 0;
+          }
+          .carousel-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+          .carousel-dots .dot.active {
+            background: #FF0000;
+            width: 40px;
+            border-radius: 6px;
+          }
+
+          /* Carousel Media Queries */
+          @media (max-width: 768px) {
+            .carousel-button { width: 40px; height: 40px; }
+          }
+          @media (max-width: 480px) {
+            .carousel-button { width: 35px; height: 35px; }
+          }
         }
       `}</style>
 
@@ -1038,6 +1109,8 @@ const App = () => {
           </div>
         </div>
       </section>
+
+      <ReelsCarousel />
 
       {/* ─── Footer ─── */}
       <footer className="footer">
