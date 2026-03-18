@@ -751,6 +751,8 @@ const App = () => {
         }
       `}</style>
 
+      <script async src="https://www.instagram.com/embed.js" />
+
       {/* ─── Header ─── */}
       <motion.header
         className="header"

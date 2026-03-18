@@ -38,6 +38,13 @@ const ReelsCarousel = () => {
     return () => clearInterval(interval)
   }, [autoPlay, current])
 
+  useEffect(() => {
+    // Process Instagram embeds when the current reel changes
+    if (window.instgrm) {
+      window.instgrm.Embed.process()
+    }
+  }, [current])
+
   const paginate = (newDirection) => {
     setDirection(newDirection)
     setCurrent((prev) => (prev + newDirection + reels.length) % reels.length)
