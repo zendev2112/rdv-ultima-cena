@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 
 const YoutubeCarousel = () => {
   const [current, setCurrent] = useState(0)
+  const touchStartX = useRef(null)
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return
+    const diff = touchStartX.current - e.changedTouches[0].clientX
+    if (diff > 50) paginate(1)
+    else if (diff < -50) paginate(-1)
+    touchStartX.current = null
+  }
 
   const videos = [
     {
@@ -53,15 +65,10 @@ const YoutubeCarousel = () => {
         </motion.div>
 
         {/* All iframes rendered at once — no reload on navigation */}
-        <motion.div
+        <div
           className="carousel-stage"
-          drag="x"
-          dragElastic={0}
-          dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={(e, { offset }) => {
-            if (offset.x < -60) paginate(1)
-            else if (offset.x > 60) paginate(-1)
-          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           {videos.map((video, i) => {
             const offset =
@@ -96,7 +103,7 @@ const YoutubeCarousel = () => {
               </div>
             )
           })}
-        </motion.div>
+        </div>
 
         <div className="carousel-controls">
           <motion.button
