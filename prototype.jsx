@@ -1081,6 +1081,8 @@ const App = () => {
         </div>
       </section>
 
+      <ReelsCarousel />
+
       {/* ─── Packages Section ─── */}
       <section
         id="comercial"
@@ -1134,8 +1136,6 @@ const App = () => {
           </div>
         </div>
       </section>
-
-      <ReelsCarousel />
 
       {/* ─── Footer ─── */}
       <footer className="footer">
