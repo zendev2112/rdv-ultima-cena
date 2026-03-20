@@ -79,7 +79,7 @@ const ReelsCarousel = () => {
                 key={reel.id}
                 className={`reel-slot${isCurrent ? ' reel-center' : ' reel-side'}`}
                 style={{
-                  display: isVisible ? 'flex' : 'none',
+                  display: !isVisible ? 'none' : undefined,
                   order: isPrev ? 0 : isCurrent ? 1 : 2,
                   cursor: !isCurrent ? 'pointer' : 'default',
                 }}

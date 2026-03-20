@@ -688,6 +688,8 @@ const App = () => {
           justify-content: center;
           gap: 16px;
           margin-bottom: 28px;
+          overflow: hidden;
+          width: 100%;
         }
         .reel-slot {
           position: relative;
@@ -765,11 +767,11 @@ const App = () => {
 
         @media (max-width: 768px) {
           .reel-side { display: none; }
-          .reel-center { width: 320px; }
+          .reel-center { width: min(320px, calc(100vw - 40px)); }
           .carousel-iframe { height: 568px; }
         }
         @media (max-width: 480px) {
-          .reel-center { width: 260px; }
+          .reel-center { width: min(260px, calc(100vw - 40px)); }
           .carousel-iframe { height: 462px; }
         }
 
@@ -807,11 +809,11 @@ const App = () => {
 
         @media (max-width: 768px) {
           .video-side { display: none; }
-          .video-center { width: 360px; }
+          .video-center { width: min(360px, calc(100vw - 40px)); }
           .youtube-carousel .carousel-iframe { height: 202px; }
         }
         @media (max-width: 480px) {
-          .video-center { width: 280px; }
+          .video-center { width: min(280px, calc(100vw - 40px)); }
           .youtube-carousel .carousel-iframe { height: 157px; }
         }
         }

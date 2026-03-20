@@ -83,7 +83,7 @@ const YoutubeCarousel = () => {
                 key={video.id}
                 className={`video-slot${isCurrent ? ' video-center' : ' video-side'}`}
                 style={{
-                  display: isVisible ? 'flex' : 'none',
+                  display: !isVisible ? 'none' : undefined,
                   order: isPrev ? 0 : isCurrent ? 1 : 2,
                   cursor: !isCurrent ? 'pointer' : 'default',
                 }}
