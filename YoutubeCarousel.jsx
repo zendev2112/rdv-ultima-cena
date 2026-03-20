@@ -53,7 +53,17 @@ const YoutubeCarousel = () => {
         </motion.div>
 
         {/* All iframes rendered at once — no reload on navigation */}
-        <div className="carousel-stage">
+        <motion.div
+          className="carousel-stage"
+          drag="x"
+          dragElastic={0.15}
+          dragConstraints={{ left: -1000, right: 1000 }}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipe = offset.x * velocity.x
+            if (swipe < -500) paginate(1)
+            else if (swipe > 500) paginate(-1)
+          }}
+        >
           {videos.map((video, i) => {
             const offset =
               (((i - current) % videos.length) + videos.length) % videos.length
@@ -87,7 +97,7 @@ const YoutubeCarousel = () => {
               </div>
             )
           })}
-        </div>
+        </motion.div>
 
         <div className="carousel-controls">
           <motion.button
