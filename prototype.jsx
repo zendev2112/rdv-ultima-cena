@@ -103,7 +103,7 @@ const App = () => {
       />
       <style>{`
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; color: white; }
+        body { font-family: 'Inter', sans-serif; color: white; overflow-x: hidden; }
 
         .App {
           min-height: 100vh;

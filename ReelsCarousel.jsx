@@ -52,12 +52,11 @@ const ReelsCarousel = () => {
         <motion.div
           className="carousel-stage"
           drag="x"
-          dragElastic={0.15}
-          dragConstraints={{ left: -1000, right: 1000 }}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = offset.x * velocity.x
-            if (swipe < -500) paginate(1)
-            else if (swipe > 500) paginate(-1)
+          dragElastic={0}
+          dragConstraints={{ left: 0, right: 0 }}
+          onDragEnd={(e, { offset }) => {
+            if (offset.x < -60) paginate(1)
+            else if (offset.x > 60) paginate(-1)
           }}
         >
           {reels.map((reel, i) => {
