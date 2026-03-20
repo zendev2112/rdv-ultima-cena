@@ -678,76 +678,99 @@ const App = () => {
           .package-card h3 { font-size: 1.2rem; }
           .footer { padding: 60px 0 30px; }
           .footer h2 { font-size: 1.4rem; }
+        }
 
-          /* Carousel Styles */
-          .carousel-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 60px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: rgba(0,0,0,0.4);
-          }
-          .carousel-slide {
-            width: 100%;
-            position: relative;
-          }
-          .reel-embed {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-          }
-          .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,0,0,0.6);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: all 0.3s ease;
-          }
-          .carousel-button:hover {
-            background: #FF0000;
-          }
-          .carousel-button.prev { left: 15px; }
-          .carousel-button.next { right: 15px; }
-          .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 20px 0;
-          }
-          .carousel-dots .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-          }
-          .carousel-dots .dot.active {
-            background: #FF0000;
-            width: 40px;
-            border-radius: 6px;
-          }
+        /* Carousel Styles */
+        .carousel-stage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          margin-bottom: 28px;
+        }
+        .reel-slot {
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          flex-shrink: 0;
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .reel-center {
+          width: 340px;
+          z-index: 2;
+          box-shadow: 0 0 60px rgba(255,0,0,0.2);
+          border: 1px solid rgba(255,100,0,0.25);
+        }
+        .reel-side {
+          width: 255px;
+          opacity: 0.35;
+          transform: scale(0.93);
+        }
+        .reel-side:hover {
+          opacity: 0.55;
+        }
+        .reel-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          background: transparent;
+        }
+        .carousel-iframe {
+          width: 100%;
+          height: 620px;
+          display: block;
+        }
+        .carousel-controls {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+        }
+        .carousel-button {
+          background: rgba(255,0,0,0.6);
+          border: none;
+          color: white;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.3s ease;
+        }
+        .carousel-button:hover {
+          background: #FF0000;
+        }
+        .carousel-dots {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        }
+        .carousel-dots .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.3);
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .carousel-dots .dot.active {
+          background: #FF0000;
+          width: 36px;
+          border-radius: 5px;
+        }
 
-          /* Carousel Media Queries */
-          @media (max-width: 768px) {
-            .carousel-button { width: 40px; height: 40px; }
-          }
-          @media (max-width: 480px) {
-            .carousel-button { width: 35px; height: 35px; }
-          }
+        @media (max-width: 768px) {
+          .reel-side { display: none; }
+          .reel-center { width: 320px; }
+          .carousel-iframe { height: 568px; }
+        }
+        @media (max-width: 480px) {
+          .reel-center { width: 260px; }
+          .carousel-iframe { height: 462px; }
+        }
         }
       `}</style>
 
