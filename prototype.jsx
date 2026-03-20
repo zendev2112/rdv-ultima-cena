@@ -17,6 +17,7 @@ import {
   X,
 } from 'lucide-react'
 import ReelsCarousel from './ReelsCarousel'
+import YoutubeCarousel from './YoutubeCarousel'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -771,6 +772,48 @@ const App = () => {
           .reel-center { width: 260px; }
           .carousel-iframe { height: 462px; }
         }
+
+        /* YouTube Carousel Styles */
+        .video-slot {
+          position: relative;
+          border-radius: 16px;
+          overflow: hidden;
+          flex-shrink: 0;
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .video-center {
+          width: 480px;
+          z-index: 2;
+          box-shadow: 0 0 60px rgba(255,0,0,0.2);
+          border: 1px solid rgba(255,100,0,0.25);
+        }
+        .video-side {
+          width: 360px;
+          opacity: 0.35;
+          transform: scale(0.93);
+        }
+        .video-side:hover {
+          opacity: 0.55;
+        }
+        .video-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          background: transparent;
+        }
+        .youtube-carousel .carousel-iframe {
+          height: 270px;
+        }
+
+        @media (max-width: 768px) {
+          .video-side { display: none; }
+          .video-center { width: 360px; }
+          .youtube-carousel .carousel-iframe { height: 202px; }
+        }
+        @media (max-width: 480px) {
+          .video-center { width: 280px; }
+          .youtube-carousel .carousel-iframe { height: 157px; }
+        }
         }
       `}</style>
 
@@ -1000,6 +1043,8 @@ const App = () => {
           </div>
         </div>
       </section>
+
+      <YoutubeCarousel />
 
       {/* ─── Content + Features Section ─── */}
       <section id="atractivo" className="section">
