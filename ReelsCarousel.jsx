@@ -10,22 +10,26 @@ const ReelsCarousel = () => {
   const reels = [
     {
       id: 1,
-      url: 'https://www.instagram.com/reel/DS3AG1WDLa_/?igsh=ZHhxd3kyNDE2dHdk',
+      url: 'https://www.instagram.com/reel/DS3AG1WDLa_/',
+      iframeUrl: 'https://www.instagram.com/reel/DS3AG1WDLa_/embed/',
       title: 'La Última Cena - Episodio 1',
     },
     {
       id: 2,
-      url: 'https://www.instagram.com/reel/DScxfV_jIZk/?igsh=OWN6bmk0dHpqbnAx',
+      url: 'https://www.instagram.com/reel/DScxfV_jIZk/',
+      iframeUrl: 'https://www.instagram.com/reel/DScxfV_jIZk/embed/',
       title: 'La Última Cena - Episodio 2',
     },
     {
       id: 3,
-      url: 'https://www.instagram.com/reel/DOrj59VDEZC/?igsh=MXJsc25qY2gyNXhvdQ==',
+      url: 'https://www.instagram.com/reel/DOrj59VDEZC/',
+      iframeUrl: 'https://www.instagram.com/reel/DOrj59VDEZC/embed/',
       title: 'La Última Cena - Episodio 3',
     },
     {
       id: 4,
-      url: 'https://www.instagram.com/reel/DQxO8REDNLo/?igsh=cHJ2djV6OWdjN2Nw',
+      url: 'https://www.instagram.com/reel/DQxO8REDNLo/',
+      iframeUrl: 'https://www.instagram.com/reel/DQxO8REDNLo/embed/',
       title: 'La Última Cena - Episodio 4',
     },
   ]
@@ -37,13 +41,6 @@ const ReelsCarousel = () => {
     }, 6000)
     return () => clearInterval(interval)
   }, [autoPlay, current])
-
-  useEffect(() => {
-    // Process Instagram embeds when the current reel changes
-    if (window.instgrm) {
-      window.instgrm.Embed.process()
-    }
-  }, [current])
 
   const paginate = (newDirection) => {
     setDirection(newDirection)
@@ -112,22 +109,14 @@ const ReelsCarousel = () => {
               className="carousel-slide"
             >
               <div className="reel-embed">
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-permalink={reels[current].url}
-                  data-instgrm-version="14"
-                  style={{
-                    background: '#FFF',
-                    border: '0',
-                    borderRadius: '3px',
-                    boxShadow:
-                      '0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15)',
-                    margin: '1px',
-                    maxWidth: '540px',
-                    minWidth: '326px',
-                    padding: '0',
-                    width: '100%',
-                  }}
+                <iframe
+                  src={reels[current].iframeUrl}
+                  className="carousel-iframe"
+                  width="100%"
+                  height="600"
+                  frameBorder="0"
+                  scrolling="no"
+                  allowFullScreen={true}
                 />
               </div>
             </motion.div>
